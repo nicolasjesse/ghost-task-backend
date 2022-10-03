@@ -9,3 +9,20 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+
+class Frame(BaseModel):
+
+    title = models.TextField(verbose_name='Title')
+
+class Column(BaseModel):
+
+    title = models.TextField(verbose_name='Title')
+    position = models.IntegerField(verbose_name='Position')
+    frame = models.ForeignKey(Frame, on_delete=models.CASCADE, related_name='columns')
+
+class Task(BaseModel):
+
+    title = models.TextField(verbose_name='Title')
+    description = models.TextField(verbose_name='Description')
+    position = models.IntegerField(verbose_name='Position')
+    column = models.ForeignKey(Column, on_delete=models.CASCADE, related_name='tasks')
